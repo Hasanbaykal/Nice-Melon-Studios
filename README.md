@@ -1,2 +1,2 @@
 # Nice Melon Studios
-<img src="https://imgur.com/EpTWW98" width="100%">
+<img src="https://i.imgur.com/EpTWW98.png" width="100%">
