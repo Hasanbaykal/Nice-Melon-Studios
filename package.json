@@ -1,7 +1,7 @@
 {
-  "name": "phaser-game",
+  "name": "phaser-workshop",
   "version": "1.0.0",
-  "description": "Phaser Game",
+  "description": "Phaser 3 Workshop with Typescript and Parcel",
   "main": "src/index.html",
   "scripts": {
     "build": "parcel build src/index.html --public-url ./ --out-dir docs --no-source-maps",
@@ -12,7 +12,7 @@
   "keywords": [
     "phaser3"
   ],
-  "author": "",
+  "author": "HR-CMGT",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^11.13.8",
