@@ -1,10 +1,8 @@
 import { Player } from "../objects/player"
-import { Platform } from "../objects/platform"
-import { MovingPlatform } from "../objects/movingplatform"
 import { Bomb } from "../objects/bomb";
-import { Game } from "phaser";
 import { UI } from "../objects/ui";
 import { Enemy} from "../objects/enemy"
+import { Bullet } from "../objects/bullet"
 
 export class GameScene extends Phaser.Scene {
 
@@ -13,6 +11,7 @@ export class GameScene extends Phaser.Scene {
     private stars: Phaser.Physics.Arcade.Group
     private bombs: Phaser.GameObjects.Group
     private enemyGroup: Phaser.GameObjects.Group
+    private bulletGroup: Phaser.GameObjects.Group
     private counter = 0
     private background
     private ui: UI
@@ -27,7 +26,9 @@ export class GameScene extends Phaser.Scene {
     }
 
     create(): void {
-         this.background = this.add.tileSprite(400, 300, 800, 600, 'boot')     
+        this.background = this.add.tileSprite(400, 300, 800, 600, 'boot')  
+        
+        this.bulletGroup = this.add.group({ runChildUpdate: true }) 
     
         // 11 STARS
         this.stars = this.physics.add.group({
@@ -61,6 +62,9 @@ export class GameScene extends Phaser.Scene {
         this.ui = new UI(this)
     }
 
+    public friendlyBullet(){
+        this.bulletGroup.add(new Bullet(this, this.player.x+20, this.player.y), true)
+    }
 
     private hitBomb(player: Player, bombs){
         this.scene.start('EndScene')
