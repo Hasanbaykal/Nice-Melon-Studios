@@ -5,7 +5,7 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
     constructor(scene: Phaser.Scene, x:number, y:number, enemy:boolean = false) {
         super(scene, x, y, "pixel1")       
         
-        let direction = (enemy) ? -1 : 1
+        let direction = -1
         let tint = (enemy) ? 0xFF0000 : 0xFFFFFF
 
         this.addParticles(tint)
@@ -14,8 +14,8 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this) 
         this.setSize(this.displayWidth + 20, this.displayHeight + 20)
 
-        this.setVelocity((100 * direction),0)
-        this.setAccelerationX(400 * direction) 
+        this.setVelocityY(100 * direction)
+        this.setAccelerationY(-500) 
         this.on('destroy', this.onBeforeDestroy)
     }
 

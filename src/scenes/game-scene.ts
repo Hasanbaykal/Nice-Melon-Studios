@@ -63,7 +63,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     public friendlyBullet(){
-        this.bulletGroup.add(new Bullet(this, this.player.x+20, this.player.y), true)
+        this.bulletGroup.add(new Bullet(this, this.player.x, this.player.y-30), true)
     }
 
     private hitBomb(player: Player, bombs){
@@ -82,7 +82,7 @@ export class GameScene extends Phaser.Scene {
     update(){
         this.player.update()
         this.ui.update()
-        this.background.tilePositionX += 2
+        this.background.tilePositionY += 2
 
         this.counter++
         if(this.counter % 420 == 0){
