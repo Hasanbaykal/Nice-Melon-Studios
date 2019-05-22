@@ -3,6 +3,7 @@ import { GameScene } from "../scenes/game-scene"
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     public score: number = 25
+    private enemies = []
     private gameScene : GameScene
 
     constructor(scene: GameScene) {
@@ -26,6 +27,8 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     // TODO RETURN FIRE!
     public update() : void {       
+        this.enemies.push(this)
+        console.log(this.enemies)
        if (this.y > 1000 - this.width){
             this.resetPosition()
        }
