@@ -3,6 +3,7 @@ import { Bomb } from "../objects/bomb";
 import { UI } from "../objects/ui";
 import { Enemy} from "../objects/enemy"
 import { Bullet } from "../objects/bullet"
+import { Physics } from "phaser";
 
 export class GameScene extends Phaser.Scene {
 
@@ -51,9 +52,12 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.platforms)
         this.physics.add.collider(this.bombs, this.platforms)
         this.physics.add.collider(this.player, this.enemyGroup)
+        this.physics.add.collider(this.enemyGroup, this.bulletGroup)
         
         this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this)
         this.physics.add.overlap(this.player, this.bombs, this.hitBomb, null, this)
+        this.physics.add.overlap(this.player, this.enemyGroup, this.removeEnemy, null, this)
+        this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.removeBullet, null, this)
 
         this.cameras.main.setSize(800, 600)
         this.cameras.main.setBounds(0, 0, 800, 600)
@@ -79,10 +83,19 @@ export class GameScene extends Phaser.Scene {
         }
     }
 
+    private removeBullet(Bullet, Enemy) {
+        this.bulletGroup.remove(Bullet, true, true)
+        this.enemyGroup.remove(Enemy, true, true) 
+    }
+
+    private removeEnemy(player : Player, Enemy) {
+        this.enemyGroup.remove(Enemy, true, true)
+    }
+
     update(){
         this.player.update()
         this.ui.update()
-        this.background.tilePositionY += 2
+        this.background.tilePositionY -= 2
 
         this.counter++
         if(this.counter % 420 == 0){

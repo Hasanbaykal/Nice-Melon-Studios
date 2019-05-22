@@ -25,10 +25,6 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityY(Phaser.Math.Between(150, 300))
     }
 
-    // public delete() {
-    //     this.scene.
-    // }
-
     // TODO RETURN FIRE!
     public update() : void {       
        
@@ -37,7 +33,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
             console.log(this.enemies.length)
             this.resetPosition()
 
-            if(this.enemies.length > 4){
+            if(this.enemies.length > 8){
                 this.destroy()
             }
        }
