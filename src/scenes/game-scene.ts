@@ -27,7 +27,6 @@ export class GameScene extends Phaser.Scene {
 
     create(): void {
         this.background = this.add.tileSprite(400, 300, 800, 600, 'boot')  
-        
         this.bulletGroup = this.add.group({ runChildUpdate: true }) 
     
         // 11 STARS

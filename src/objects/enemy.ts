@@ -6,7 +6,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     private gameScene : GameScene
 
     constructor(scene: GameScene) {
-        super(scene, Phaser.Math.Between(1500, 1650), Phaser.Math.Between(100, 800), "enemy")       
+        super(scene, Phaser.Math.Between(150, 600), Phaser.Math.Between(-50, -100), "enemy")       
 
         this.gameScene = scene
         
@@ -15,20 +15,18 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this)
 
         this.setSize(this.displayWidth, this.displayHeight)
-        this.setVelocity(Phaser.Math.Between(-200, -140),0)
+        this.setVelocityY(Phaser.Math.Between(150, 300))
     }
 
     public resetPosition() {
-        this.x = Phaser.Math.Between(1500, 1650)
-        this.y = Phaser.Math.Between(100, 800)
-        this.setVelocity(Phaser.Math.Between(-200, -140), 0)
+        this.x = Phaser.Math.Between(-50, 600)
+        this.y = Phaser.Math.Between(20, 50)
+        this.setVelocityY(Phaser.Math.Between(150, 300))
     }
 
     // TODO RETURN FIRE!
-    public update() : void {
-       this.y += Math.sin(this.x / 70) * 3
-       
-       if (this.x < 0 - this.width){
+    public update() : void {       
+       if (this.y > 1000 - this.width){
             this.resetPosition()
        }
     }
