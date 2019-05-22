@@ -27,8 +27,8 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     // TODO RETURN FIRE!
     public update() : void {       
-        this.enemies.push(this)
-        console.log(this.enemies)
+        // this.enemies.push(this)
+        // console.log(this.enemies)
        if (this.y > 1000 - this.width){
             this.resetPosition()
        }
