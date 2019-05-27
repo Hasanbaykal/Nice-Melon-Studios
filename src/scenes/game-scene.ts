@@ -43,7 +43,8 @@ export class GameScene extends Phaser.Scene {
         
         this.platforms = this.add.group({ runChildUpdate: true })
         this.platforms.addMultiple([
-            new Platform(this, 800, 574, "enemy"),
+            new Platform(this, 20, 574, "ground"),
+            new Platform(this, 780, 574, "ground2"),
         ], true)
 
         // define collisions for bouncing, and overlaps for pickups
