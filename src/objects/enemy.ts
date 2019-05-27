@@ -25,7 +25,6 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityY(Phaser.Math.Between(150, 300))
     }
 
-    // TODO RETURN FIRE!
     public update() : void {       
        
        if (this.y > 1000 - this.width){

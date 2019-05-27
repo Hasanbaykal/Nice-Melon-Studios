@@ -15,6 +15,7 @@ export class BootScene extends Phaser.Scene {
         this.load.image('star', require('../assets/star.png'))
         this.load.image('bomb', require('../assets/bomb.png'))
         this.load.image('ground', require('../assets/platform_ground.png'))
+        this.load.image('ground2', require('../assets/platform_ground_flip.png'))
         this.load.image('worm', require('../assets/worm.png'))
         this.load.image('enemy', require('../assets/enemy.png'))
         this.load.image('pixel', require('../assets/pixel.png'))
