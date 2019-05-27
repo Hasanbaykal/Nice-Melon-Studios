@@ -1,5 +1,5 @@
 import { Player } from "../objects/player"
-import { UI } from "../objects/ui";
+import { UI } from "../objects/ui"
 import { Enemy} from "../objects/enemy"
 import { Bullet } from "../objects/bullet"
 import { Platform } from "../objects/platform"
@@ -37,7 +37,6 @@ export class GameScene extends Phaser.Scene {
         })  
 
         // TODO add player
-        this.player = new Player(this)
         this.enemyGroup = this.add.group({ runChildUpdate: true })
         this.enemyGroup.add(new Enemy(this), true)
         
@@ -46,6 +45,8 @@ export class GameScene extends Phaser.Scene {
             new Platform(this, 20, 574, "ground"),
             new Platform(this, 780, 574, "ground2"),
         ], true)
+        this.player = new Player(this)
+
 
         // define collisions for bouncing, and overlaps for pickups
         this.physics.add.collider(this.player, this.enemyGroup)
@@ -53,11 +54,11 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.platforms)
         
         this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this)
-        this.physics.add.overlap(this.player, this.enemyGroup, this.removeEnemy, null, this)
+        this.physics.add.overlap(this.player, this.enemyGroup   , this.removeEnemy, null, this)
         this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.removeBullet, null, this)
 
         this.cameras.main.setSize(800, 600)
-        this.cameras.main.setBounds(0, 0, 800, 600)
+        this.cameras.main.setBounds(0, 30, 800, 600)
         this.cameras.main.startFollow(this.player)
 
         this.ui = new UI(this)
@@ -67,7 +68,7 @@ export class GameScene extends Phaser.Scene {
         this.bulletGroup.add(new Bullet(this, this.player.x, this.player.y-30), true)
     }
 
-    private collectStar(player : Player , star) : void {
+    private collectStar(star) : void {
         this.stars.remove(star, true, true)
         this.registry.values.score++
         
@@ -77,11 +78,13 @@ export class GameScene extends Phaser.Scene {
     }
 
     private removeBullet(Bullet, Enemy) {
+        console.log("??")
         this.bulletGroup.remove(Bullet, true, true)
         this.enemyGroup.remove(Enemy, true, true) 
     }
 
-    private removeEnemy(player : Player, Enemy) {
+    private removeEnemy(Enemy) {
+        console.log("?")
         this.enemyGroup.remove(Enemy, true, true)
     }
 

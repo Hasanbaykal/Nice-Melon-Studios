@@ -7,7 +7,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     private gameScene : GameScene
 
     constructor(scene: GameScene) {
-        super(scene, Phaser.Math.Between(150, 600), Phaser.Math.Between(-50, -200), 'enemy70')    
+        super(scene, Phaser.Math.Between(150, 600), Phaser.Math.Between(-50, -200), 'star')    
         this.gameScene = scene
         
         this.setScale(0.75)
