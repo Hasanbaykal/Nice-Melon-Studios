@@ -26,9 +26,12 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public update() : void {    
          
 =======
+=======
+>>>>>>> parent of b21677e... fixed phys + screwed sprites up
     // TODO RETURN FIRE!
     public update() : void {       
 >>>>>>> parent of b21677e... fixed phys + screwed sprites up

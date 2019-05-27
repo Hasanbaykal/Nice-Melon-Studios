@@ -1,7 +1,10 @@
 import { Player } from "../objects/player"
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { UI } from "../objects/ui"
 =======
+=======
+>>>>>>> parent of b21677e... fixed phys + screwed sprites up
 import { Bomb } from "../objects/bomb";
 import { UI } from "../objects/ui";
 >>>>>>> parent of b21677e... fixed phys + screwed sprites up
@@ -50,7 +53,6 @@ export class GameScene extends Phaser.Scene {
         this.enemyGroup = this.add.group({ runChildUpdate: true })
         this.enemyGroup.add(new Enemy(this), true)
         
-<<<<<<< HEAD
         this.platforms = this.add.group({ runChildUpdate: true })
         this.platforms.addMultiple([
             new Platform(this, 20, 574, "ground"),
@@ -62,22 +64,20 @@ export class GameScene extends Phaser.Scene {
         // define collisions for bouncing, and overlaps for pickups
         this.physics.add.collider(this.player, this.enemyGroup)
         this.physics.add.collider(this.enemyGroup, this.bulletGroup)
-=======
         // define collisions for bouncing, and overlaps for pickups
         this.physics.add.collider(this.stars, this.platforms)
->>>>>>> parent of b21677e... fixed phys + screwed sprites up
+
+        // define collisions for bouncing, and overlaps for pickups
+        this.physics.add.collider(this.stars, this.platforms)
         this.physics.add.collider(this.player, this.platforms)
         this.physics.add.collider(this.bombs, this.platforms)
         this.physics.add.collider(this.player, this.enemyGroup)
         this.physics.add.collider(this.enemyGroup, this.bulletGroup)
         
         this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this)
-<<<<<<< HEAD
         this.physics.add.overlap(this.player, this.enemyGroup   , this.removeEnemy, null, this)
-=======
         this.physics.add.overlap(this.player, this.bombs, this.hitBomb, null, this)
         this.physics.add.overlap(this.player, this.enemyGroup, this.removeEnemy, null, this)
->>>>>>> parent of b21677e... fixed phys + screwed sprites up
         this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.removeBullet, null, this)
 
         this.cameras.main.setSize(800, 600)
@@ -91,15 +91,13 @@ export class GameScene extends Phaser.Scene {
         this.bulletGroup.add(new Bullet(this, this.player.x, this.player.y-30), true)
     }
 
-<<<<<<< HEAD
     private collectStar(star) : void {
-=======
+
     private hitBomb(player: Player, bombs){
         this.scene.start('EndScene')
     }
 
     private collectStar(player : Player , star) : void {
->>>>>>> parent of b21677e... fixed phys + screwed sprites up
         this.stars.remove(star, true, true)
         this.registry.values.score++
         
