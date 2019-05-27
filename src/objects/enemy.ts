@@ -1,5 +1,6 @@
 import { GameScene } from "../scenes/game-scene"
 
+
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     public score: number = 25
