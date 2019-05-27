@@ -48,8 +48,8 @@ export class GameScene extends Phaser.Scene {
         ], true)
 
         // define collisions for bouncing, and overlaps for pickups
-        // this.physics.add.collider(this.player, this.enemyGroup)
-        // this.physics.add.collider(this.enemyGroup, this.bulletGroup)
+        this.physics.add.collider(this.player, this.enemyGroup)
+        this.physics.add.collider(this.enemyGroup, this.bulletGroup)
         this.physics.add.collider(this.player, this.platforms)
         
         this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this)
