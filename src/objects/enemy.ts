@@ -10,7 +10,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         super(scene, Phaser.Math.Between(150, 600), Phaser.Math.Between(-50, -200), 'enemy70')    
         this.gameScene = scene
         
-        this.setScale(0.7)
+        this.setScale(0.75)
         this.scene.add.existing(this)
         this.scene.physics.add.existing(this)
 
