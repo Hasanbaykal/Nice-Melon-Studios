@@ -25,17 +25,8 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityY(Phaser.Math.Between(150, 300))
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public update() : void {    
-         
-=======
-=======
->>>>>>> parent of b21677e... fixed phys + screwed sprites up
     // TODO RETURN FIRE!
     public update() : void {       
->>>>>>> parent of b21677e... fixed phys + screwed sprites up
-       
        if (this.y > 1000 - this.width){
             this.enemies.push(1)
             console.log(this.enemies.length)

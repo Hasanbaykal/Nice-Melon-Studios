@@ -1,15 +1,9 @@
 import { Player } from "../objects/player"
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { UI } from "../objects/ui"
-=======
-=======
->>>>>>> parent of b21677e... fixed phys + screwed sprites up
 import { Bomb } from "../objects/bomb";
-import { UI } from "../objects/ui";
->>>>>>> parent of b21677e... fixed phys + screwed sprites up
 import { Enemy} from "../objects/enemy"
 import { Bullet } from "../objects/bullet"
+import { Platform } from "../objects/platform"
 import { Physics } from "phaser";
 
 export class GameScene extends Phaser.Scene {
@@ -91,7 +85,6 @@ export class GameScene extends Phaser.Scene {
         this.bulletGroup.add(new Bullet(this, this.player.x, this.player.y-30), true)
     }
 
-    private collectStar(star) : void {
 
     private hitBomb(player: Player, bombs){
         this.scene.start('EndScene')
