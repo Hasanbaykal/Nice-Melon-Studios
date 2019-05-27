@@ -1,8 +1,8 @@
-// allow use of WebFont.load in typescript  
+// allow use of WebFont.load in typescript
 
 declare namespace google.fonts {
     interface WebFont {
-        load(o:any):void
+        load(o:any):void // hack
     }
 
     interface WebfontList {
