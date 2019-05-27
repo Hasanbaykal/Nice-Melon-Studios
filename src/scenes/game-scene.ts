@@ -49,8 +49,8 @@ export class GameScene extends Phaser.Scene {
         
         this.platforms = this.add.group({ runChildUpdate: true })
         this.platforms.addMultiple([
-            // new Platform(this, 20, 574, "ground"),
-            // new Platform(this, 780, 574, "ground2"),
+            new Platform(this, 20, 574, "ground"),
+            new Platform(this, 780, 574, "ground2"),
         ], true)
         this.player = new Player(this)
 
@@ -59,8 +59,8 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.enemyGroup, this.bulletGroup)
         this.physics.add.collider(this.player, this.platforms)
         
-        this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this)
         this.physics.add.overlap(this.player, this.enemyGroup, this.removeEnemy, null, this)
+        this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this)
         this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.removeBullet, null, this)
 
         this.ui = new UI(this)

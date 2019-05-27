@@ -3,13 +3,13 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
     private particles:Phaser.GameObjects.Particles.ParticleEmitterManager
 
     constructor(scene: Phaser.Scene, x:number, y:number, enemy:boolean = false) {
-        super(scene, x, y, "pixel1")       
+        super(scene, x, y, "missile")       
         
         let direction = -1
-        let tint = (enemy) ? 0xFF0000 : 0xFFFFFF
+        let tint = 0xBDBDBD
 
         this.addParticles(tint)
-        this.setScale(0.6) 
+        this.setScale(0.9) 
 
         this.scene.physics.add.existing(this) 
         this.setSize(this.displayWidth + 20, this.displayHeight + 20)
@@ -25,7 +25,7 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
 
     // particles added to scene instead of bullet. use container to group particles and bullet
     private addParticles(tint) {
-        this.particles = this.scene.add.particles('pixel2')
+        this.particles = this.scene.add.particles('pixel')
 
         let emitter = this.particles.createEmitter({
             lifespan: 200,
