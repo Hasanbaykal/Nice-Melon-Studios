@@ -6,7 +6,7 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, "missile")       
         
         let direction = -1
-        let tint = 0xBDBDBD
+        let tint = 0xFFFFFF
 
         this.addParticles(tint)
         this.setScale(0.9) 

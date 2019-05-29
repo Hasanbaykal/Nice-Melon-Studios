@@ -1,17 +1,16 @@
 import { GameScene } from "../scenes/game-scene"
 
 
-export class Enemy extends Phaser.Physics.Arcade.Sprite {
+export class Parts extends Phaser.Physics.Arcade.Sprite {
 
     public score: number = 25
-    private enemies = []
+    private parts = []
     private gameScene : GameScene
 
     constructor(scene: GameScene) {
-        super(scene, Phaser.Math.Between(150, 600), Phaser.Math.Between(-50, -200), 'enemy70')    
+        super(scene, Phaser.Math.Between(150, 600), Phaser.Math.Between(-50, -200), 'star')    
         this.gameScene = scene
         
-        this.setScale(0.7)
         this.scene.add.existing(this)
         this.scene.physics.add.existing(this)
 
@@ -25,14 +24,13 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityY(Phaser.Math.Between(150, 300))
     }
 
-    // TODO RETURN FIRE!
-    public update() : void {       
-       if (this.y > 1000 - this.width){
-            this.enemies.push(1)
-            console.log(this.enemies.length + " enemies")
+    public update() : void { 
+       if (this.y > 600){
+            this.parts.push(1)
+            console.log(this.parts.length + " parts")
             this.resetPosition()
 
-            if(this.enemies.length > 8){
+            if(this.parts.length > 4){
                 this.destroy()
             }
        }

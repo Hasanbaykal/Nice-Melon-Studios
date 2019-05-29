@@ -1,17 +1,14 @@
 import { Player } from "../objects/player"
 import { UI } from "../objects/ui"
-import { Bomb } from "../objects/bomb";
 import { Enemy} from "../objects/enemy"
 import { Bullet } from "../objects/bullet"
 import { Platform } from "../objects/platform"
-import { Physics } from "phaser";
-
+import { Parts } from "../objects/parts"
 export class GameScene extends Phaser.Scene {
 
     private player : Player
     private platforms: Phaser.GameObjects.Group
-    private stars: Phaser.Physics.Arcade.Group
-    private bombs: Phaser.GameObjects.Group
+    private partsGroup: Phaser.GameObjects.Group
     private enemyGroup: Phaser.GameObjects.Group
     private bulletGroup: Phaser.GameObjects.Group
     private counter = 0
@@ -25,28 +22,16 @@ export class GameScene extends Phaser.Scene {
     init(): void {
         console.log("Game Scene")
         this.registry.set("score", 0)
+        this.registry.set("lives", 100)
     }
 
     create(): void {
         this.background = this.add.tileSprite(400, 300, 800, 600, 'boot')  
         this.bulletGroup = this.add.group({ runChildUpdate: true }) 
-    
-        // 11 STARS
-        this.stars = this.physics.add.group({
-            key: 'star',
-            repeat: 11,
-            setXY: { x: 12, y: 100, stepX: 70 },
-        })
 
-        this.bombs = this.add.group()
-        for(let i = 0; i < 0; i++){
-            this.bombs.add(new Bomb(this, i*200, 20), true)
-        }
+        this.partsGroup = this.add.group({ runChildUpdate: true }).add(new Parts(this), true)
+            this.enemyGroup = this.add.group({ runChildUpdate: true }).add(new Enemy(this), true)
 
-        // TODO add player
-        this.enemyGroup = this.add.group({ runChildUpdate: true })
-        this.enemyGroup.add(new Enemy(this), true)
-        
         this.platforms = this.add.group({ runChildUpdate: true })
         this.platforms.addMultiple([
             new Platform(this, 20, 574, "ground"),
@@ -54,40 +39,38 @@ export class GameScene extends Phaser.Scene {
         ], true)
         this.player = new Player(this)
 
-
-        this.physics.add.collider(this.player, this.enemyGroup)
+        this.physics.add.collider(this.player, this.partsGroup, this.collectPart, null, this)
+        this.physics.add.collider(this.player, this.enemyGroup, this.removeEnemy, null, this)
         this.physics.add.collider(this.enemyGroup, this.bulletGroup)
         this.physics.add.collider(this.player, this.platforms)
-        
-        this.physics.add.overlap(this.player, this.enemyGroup, this.removeEnemy, null, this)
-        this.physics.add.overlap(this.player, this.stars, this.collectStar, null, this)
-        this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.removeBullet, null, this)
 
+        this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.removeBullet, null, this)
+        this.physics.add.overlap(this.enemyGroup, this.enemyGroup, this.removeEnemy, null, this)
+        
         this.ui = new UI(this)
+    }
+
+    private collectPart(Player : Player, Parts : Parts) {
+        this.partsGroup.remove(Parts, true, true)
+        this.registry.values.score += 1
+        if(this.registry.values.lives < 100){
+        this.registry.values.lives += 25
+        }
     }
 
     public friendlyBullet(){
         this.bulletGroup.add(new Bullet(this, this.player.x, this.player.y-30), true)
     }
 
-    private collectStar(player : Player , star) : void {
-        this.stars.remove(star, true, true)
-        this.registry.values.score++
-        
-        if(this.registry.values.score == 12){
-            console.log("DONE")
-        }
-    }
-
-    private removeBullet(Bullet, Enemy) {
+    private removeBullet(Bullet : Bullet, Enemy : Enemy) {
         console.log("??")
         this.bulletGroup.remove(Bullet, true, true)
         this.enemyGroup.remove(Enemy, true, true) 
     }
 
-    private removeEnemy(Player, Enemy) {
-        console.log("?")
+    private removeEnemy(Player : Player, Enemy : Enemy) {
         this.enemyGroup.remove(Enemy, true, true)
+        this.registry.values.lives -= 25
     }
 
     update(){
@@ -98,6 +81,7 @@ export class GameScene extends Phaser.Scene {
         this.counter++
         if(this.counter % 420 == 0){
             this.enemyGroup.add(new Enemy(this), true)
+            this.partsGroup.add(new Parts(this), true)
         }
     }
 
