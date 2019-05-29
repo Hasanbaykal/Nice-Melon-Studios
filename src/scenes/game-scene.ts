@@ -4,10 +4,12 @@ import { Enemy} from "../objects/enemy"
 import { Bullet } from "../objects/bullet"
 import { Platform } from "../objects/platform"
 import { Parts } from "../objects/parts"
+import { Astroid } from "../objects/astroid";
 export class GameScene extends Phaser.Scene {
 
     private player : Player
     private platforms: Phaser.GameObjects.Group
+    private astroidGroup: Phaser.GameObjects.Group
     private partsGroup: Phaser.GameObjects.Group
     private enemyGroup: Phaser.GameObjects.Group
     private bulletGroup: Phaser.GameObjects.Group
@@ -30,7 +32,8 @@ export class GameScene extends Phaser.Scene {
         this.bulletGroup = this.add.group({ runChildUpdate: true }) 
 
         this.partsGroup = this.add.group({ runChildUpdate: true }).add(new Parts(this), true)
-            this.enemyGroup = this.add.group({ runChildUpdate: true }).add(new Enemy(this), true)
+        this.enemyGroup = this.add.group({ runChildUpdate: true }).add(new Enemy(this), true)
+        this.astroidGroup = this.add.group({ runChildUpdate: true }).add(new Astroid(this), true)
 
         this.platforms = this.add.group({ runChildUpdate: true })
         this.platforms.addMultiple([
@@ -41,11 +44,13 @@ export class GameScene extends Phaser.Scene {
 
         this.physics.add.collider(this.player, this.partsGroup, this.collectPart, null, this)
         this.physics.add.collider(this.player, this.enemyGroup, this.removeEnemy, null, this)
+        this.physics.add.collider(this.player, this.astroidGroup, this.removeAstroid, null, this)
         this.physics.add.collider(this.enemyGroup, this.bulletGroup)
         this.physics.add.collider(this.player, this.platforms)
 
         this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.removeBullet, null, this)
         this.physics.add.overlap(this.enemyGroup, this.enemyGroup, this.removeEnemy, null, this)
+        this.physics.add.overlap(this.bulletGroup, this.astroidGroup, this.removeBullet, null, true)
         
         this.ui = new UI(this)
     }
@@ -63,7 +68,6 @@ export class GameScene extends Phaser.Scene {
     }
 
     private removeBullet(Bullet : Bullet, Enemy : Enemy) {
-        console.log("??")
         this.bulletGroup.remove(Bullet, true, true)
         this.enemyGroup.remove(Enemy, true, true) 
     }
@@ -73,16 +77,24 @@ export class GameScene extends Phaser.Scene {
         this.registry.values.lives -= 25
     }
 
+    private removeAstroid(Player : Player, Astroid : Astroid){
+        this.astroidGroup.remove(Astroid, true, true)
+        this.registry.values.lives -= 25
+    }
+
     update(){
         this.player.update()
         this.ui.update()
         this.background.tilePositionY -= 2
 
         this.counter++
-        if(this.counter % 420 == 0){
+        if(this.counter % 100 == 0){
             this.enemyGroup.add(new Enemy(this), true)
-            this.partsGroup.add(new Parts(this), true)
         }
+         if(this.counter % 420 == 0){
+            this.partsGroup.add(new Parts(this), true)
+            this.astroidGroup.add(new Astroid(this), true)
+         }
     }
 
 }
