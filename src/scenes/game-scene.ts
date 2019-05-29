@@ -79,7 +79,7 @@ export class GameScene extends Phaser.Scene {
 
     private removeEnemy(Player : Player, Enemy : Enemy) {
         this.enemyGroup.remove(Enemy, true, true)
-        this.registry.values.lives -= 25
+        this.registry.values.hearts 
     }
 
     private removeEnemyNoScore(Enemy) {
@@ -103,6 +103,9 @@ export class GameScene extends Phaser.Scene {
          if(this.counter % 420 == 0){
             this.partsGroup.add(new Parts(this), true)
             this.astroidGroup.add(new Astroid(this), true)
+         }
+         if(this.registry.values.lives == 0){
+            this.scene.start("EndScene")
          }
     }
 
