@@ -23,7 +23,6 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
         this.particles.destroy();
     }
 
-    // particles added to scene instead of bullet. use container to group particles and bullet
     private addParticles(tint) {
         this.particles = this.scene.add.particles('pixel')
 
@@ -40,7 +39,7 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
     }
 
     public update(): void {
-        if (this.x > 1300 || this.x < -300) {
+        if (this.y < 0) {
             this.destroy()
         }
     }

@@ -20,7 +20,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     public resetPosition() {
-        this.x = Phaser.Math.Between(-50, 600)
+        this.x = Phaser.Math.Between(150, 600)
         this.y = Phaser.Math.Between(-50, -200)
         this.setVelocityY(Phaser.Math.Between(150, 300))
     }
