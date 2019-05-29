@@ -45,19 +45,20 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.partsGroup, this.collectPart, null, this)
         this.physics.add.collider(this.player, this.enemyGroup, this.removeEnemy, null, this)
         this.physics.add.collider(this.player, this.astroidGroup, this.removeAstroid, null, this)
+        this.physics.add.collider(this.enemyGroup, this.astroidGroup, this.removeEnemyNoScore, null, this)
         this.physics.add.collider(this.enemyGroup, this.bulletGroup)
         this.physics.add.collider(this.player, this.platforms)
 
         this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.removeBullet, null, this)
-        this.physics.add.overlap(this.enemyGroup, this.enemyGroup, this.removeEnemy, null, this)
-        this.physics.add.overlap(this.bulletGroup, this.astroidGroup, this.removeBullet, null, true)
+        this.physics.add.overlap(this.enemyGroup, this.enemyGroup, this.removeEnemyNoScore, null, this)
+        this.physics.add.overlap(this.bulletGroup, this.astroidGroup, this.removeBulletAstroid, null, this)
         
         this.ui = new UI(this)
     }
 
     private collectPart(Player : Player, Parts : Parts) {
         this.partsGroup.remove(Parts, true, true)
-        this.registry.values.score += 1
+        this.registry.values.score += 10
         if(this.registry.values.lives < 100){
         this.registry.values.lives += 25
         }
@@ -72,9 +73,17 @@ export class GameScene extends Phaser.Scene {
         this.enemyGroup.remove(Enemy, true, true) 
     }
 
+    private removeBulletAstroid(Bullet : Bullet, Astroid : Astroid) {
+        this.bulletGroup.remove(Bullet, true, true)
+    }
+
     private removeEnemy(Player : Player, Enemy : Enemy) {
         this.enemyGroup.remove(Enemy, true, true)
         this.registry.values.lives -= 25
+    }
+
+    private removeEnemyNoScore(Enemy) {
+        this.enemyGroup.remove(Enemy, true, true)
     }
 
     private removeAstroid(Player : Player, Astroid : Astroid){
