@@ -44,10 +44,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         let emitter = sparks.createEmitter({
             speed: -100,
-            gravityY: 500, 
-            x: -4,
+            gravityY: 4000, 
             y: 30,
-            accelerationX: -100,
+            // accelerationX: -100,
             lifespan: 500,
             scale: { start: 1, end: 0 },
             blendMode: 0
