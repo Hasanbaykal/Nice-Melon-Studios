@@ -1,4 +1,4 @@
-import { GameScene } from "../scenes/game-scene"
+*import { GameScene } from "../scenes/game-scene"
 import { Joystick } from "../utils/joystick"
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
