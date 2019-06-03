@@ -46,7 +46,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             speed: -100,
             gravityY: 4000, 
             y: 30,
-            // accelerationX: -100,
             lifespan: 500,
             scale: { start: 1, end: 0 },
             blendMode: 0

@@ -16,6 +16,8 @@ export class GameScene extends Phaser.Scene {
     private counter = 0
     private background
     private ui: UI
+    private scoreBtn
+    private killBtn
 
     constructor() {
         super({ key: "GameScene" })
@@ -41,6 +43,23 @@ export class GameScene extends Phaser.Scene {
             new Platform(this, 780, 574, "ground2"),
         ], true)
         this.player = new Player(this)
+
+
+        this.killBtn = this.add.text(400, 550, 'KILL', { 
+            fontFamily: '"Press Start 2P"', 
+            fontSize: 30, color: 'white' }).setOrigin(0.5).setStroke('black', 15)
+        this.killBtn.setInteractive()
+        this.killBtn.on('pointerdown', (pointer) => {
+            this.scene.start('EndScene')
+        })        
+
+        this.scoreBtn = this.add.text(400, 150, 'SCORE', { 
+            fontFamily: '"Press Start 2P"', 
+            fontSize: 30, color: 'white' }).setOrigin(0.5).setStroke('black', 15)
+        this.scoreBtn.setInteractive()
+        this.scoreBtn.on('pointerdown', (pointer) => {
+            this.registry.values.score += 10000
+        })        
 
         this.physics.add.collider(this.player, this.partsGroup, this.collectPart, null, this)
         this.physics.add.collider(this.player, this.enemyGroup, this.removeEnemy, null, this)
