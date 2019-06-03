@@ -8,7 +8,7 @@ export class Astroid extends Phaser.Physics.Arcade.Sprite {
     private gameScene : GameScene
 
     constructor(scene: GameScene) {
-        super(scene, Phaser.Math.Between(150, 600), Phaser.Math.Between(-50, -200), 'enemy100')    
+        super(scene, Phaser.Math.Between(150, 600), Phaser.Math.Between(-50, -200), 'asteroid')    
         this.gameScene = scene
         
         this.scene.add.existing(this)
