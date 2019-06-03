@@ -1,6 +1,7 @@
 import { start } from "repl";
 
 export class StartScene extends Phaser.Scene {
+    bgMusic: Phaser.Sound.BaseSound;
 
     constructor() {
         super({key: "StartScene"})
@@ -22,6 +23,16 @@ export class StartScene extends Phaser.Scene {
         startBtn.setInteractive()
         this.input.once('pointerdown', (pointer) => {
             this.scene.start('GameScene')
-        })        
+        })     
+        this.createMusic()
+    }
+
+    // Background Music
+    private createMusic(){
+
+        this.bgMusic = this.sound.add('bgMusic', { loop: true });
+        this.bgMusic.play();
+
+
     }
 }
