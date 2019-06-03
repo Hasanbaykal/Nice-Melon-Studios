@@ -10,7 +10,6 @@ export class BootScene extends Phaser.Scene {
         this.loadFonts
     }
 
-
     // Assets
     preload(): void {
         this.load.image('boot', require('../assets/bg.png'))
@@ -35,6 +34,9 @@ export class BootScene extends Phaser.Scene {
             console.log("everything is loaded")
             this.scene.start("StartScene")
         })
+    }
+
+    create(){
     }
 
     private loadFonts(){

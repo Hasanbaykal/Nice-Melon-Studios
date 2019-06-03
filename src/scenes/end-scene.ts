@@ -2,6 +2,7 @@ export class EndScene extends Phaser.Scene {
 
     private background
     private scores: number
+
     constructor() {
         super({key: "EndScene"})
     }
@@ -13,6 +14,7 @@ export class EndScene extends Phaser.Scene {
         } else {
             localStorage.setItem("scores_not_highscore", this.registry.values.score)
         }
+        this.game.sound.stopAll()
     }
 
     create(): void {
