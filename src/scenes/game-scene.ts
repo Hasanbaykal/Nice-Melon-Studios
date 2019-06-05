@@ -1,6 +1,6 @@
 import { Player } from "../objects/player"
 import { UI } from "../objects/ui"
-import { Enemy} from "../objects/enemy"
+import { Enemy } from "../objects/enemy"
 import { Bullet } from "../objects/bullet"
 import { Platform } from "../objects/platform"
 import { Parts } from "../objects/parts"

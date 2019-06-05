@@ -9,8 +9,10 @@ export class InstructionScene extends Phaser.Scene {
 
     preload(): void {
     }
-
     create(): void {
+
+    console.log("test");
+    
 
     this.add.image(0, 0, 'boot').setOrigin(0, 0)
 
