@@ -27,6 +27,7 @@ export class StartScene extends Phaser.Scene {
         instructions.on('pointerdown', (pointer) => {
         this.scene.start('InstructionScene')
         })
+        
         let startBtn = this.add.text(400, 400, 'START', { fontFamily: '"Press Start 2P"', fontSize: 30, color: 'white' }).setOrigin(0.5).setStroke('black', 10)
         startBtn.setInteractive()
         startBtn.on('pointerdown', (pointer) => {
