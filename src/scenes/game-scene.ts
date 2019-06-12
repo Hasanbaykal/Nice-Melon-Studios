@@ -39,8 +39,8 @@ export class GameScene extends Phaser.Scene {
 
         this.platforms = this.add.group({ runChildUpdate: true })
         this.platforms.addMultiple([
-            new Platform(this, 20, 574, "ground"),
-            new Platform(this, 780, 574, "ground2"),
+            new Platform(this, 20, 574, "bounds1_1"),
+            new Platform(this, 780, 574, "bounds1_2"),
         ], true)
         this.player = new Player(this)
 
