@@ -7,6 +7,7 @@ import { Parts } from "../objects/parts"
 import { Astroid } from "../objects/astroid";
 import { emit } from "cluster";
 import { timeout } from "q";
+import { Cameras } from "phaser";
 export class GameScene extends Phaser.Scene {
 
     private player : Player
@@ -78,12 +79,32 @@ export class GameScene extends Phaser.Scene {
         this.ui = new UI(this)
     }
 
+    private Particles(x, y, i){
+        let explode = this.add.particles(i)
+
+        let emitter = explode.createEmitter({
+            speed: -250,
+            gravityY: 100, 
+            x: 30,
+            y: 30,
+            lifespan: 500,
+            scale: { start: 1, end: 0 },
+            blendMode: 0
+        });
+        emitter.explode(25, x, y)
+        console.log(i)
+    }
+
     private collectPart(Player : Player, Parts : Parts) {
         this.partsGroup.remove(Parts, true, true)
         this.registry.values.score += 10
         if(this.registry.values.lives < 300){
             this.registry.values.lives += 25
         }
+    }
+
+    private takeDamageAnimation() {
+        this.cameras.main.flash(500,255,0,0)        
     }
 
     public friendlyBullet(){
@@ -96,19 +117,9 @@ export class GameScene extends Phaser.Scene {
 
     private removeBullet(Bullet : Bullet, Enemy : Enemy) {
         this.bulletGroup.remove(Bullet, true, true)
-        this.enemyGroup.remove(Enemy, true, true) 
-        let explode = this.add.particles('pixel3')
-
-        let emitter = explode.createEmitter({
-            speed: -100,
-            gravityY: 100, 
-            x: 30,
-            y: 30,
-            lifespan: 500,
-            scale: { start: 1, end: 0 },
-            blendMode: 0
-        });
-        emitter.explode(25, Enemy.x, Enemy.y)
+        this.enemyGroup.remove(Enemy, true, true)
+        this.Particles(Enemy.x, Enemy.y, 'pixel3')
+        this.registry.values.score += 10
         }
 
     private removeBulletAstroid(Bullet : Bullet, Astroid : Astroid) {
@@ -118,6 +129,8 @@ export class GameScene extends Phaser.Scene {
     private removeEnemy(Player : Player, Enemy : Enemy) {
         this.enemyGroup.remove(Enemy, true, true)
         this.registry.values.lives -= 25
+        this.Particles(Enemy.x, Enemy.y, 'pixel3')
+        this.takeDamageAnimation()
     }
 
     private removeEnemyNoScore(Enemy) {
@@ -127,18 +140,8 @@ export class GameScene extends Phaser.Scene {
     private removeAstroid(Player : Player, Astroid : Astroid){
         this.astroidGroup.remove(Astroid, true, true)
         this.registry.values.lives -= 50
-        let explode = this.add.particles('pixel4')
-
-        let emitter = explode.createEmitter({
-            speed: -100,
-            gravityY: 100, 
-            x: 30,
-            y: 30,
-            lifespan: 500,
-            scale: { start: 1, end: 0 },
-            blendMode: 0
-        });
-        emitter.explode(50, Astroid.x, Astroid.y)
+        this.Particles(Astroid.x, Astroid.y, 'pixel4')
+        this.takeDamageAnimation()
     }
 
     update(){
