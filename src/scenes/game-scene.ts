@@ -92,7 +92,7 @@ export class GameScene extends Phaser.Scene {
     private removeBullet(Bullet : Bullet, Enemy : Enemy) {
         this.bulletGroup.remove(Bullet, true, true)
         this.enemyGroup.remove(Enemy, true, true) 
-        let sparks = this.add.particles('pixel2')
+        let sparks = this.add.particles('pixel')
 
         let emitter = sparks.createEmitter({
             speed: -100,
