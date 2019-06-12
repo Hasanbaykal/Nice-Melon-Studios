@@ -5,6 +5,8 @@ import { Bullet } from "../objects/bullet"
 import { Platform } from "../objects/platform"
 import { Parts } from "../objects/parts"
 import { Astroid } from "../objects/astroid";
+import { emit } from "cluster";
+import { timeout } from "q";
 export class GameScene extends Phaser.Scene {
 
     private player : Player
@@ -90,7 +92,19 @@ export class GameScene extends Phaser.Scene {
     private removeBullet(Bullet : Bullet, Enemy : Enemy) {
         this.bulletGroup.remove(Bullet, true, true)
         this.enemyGroup.remove(Enemy, true, true) 
-    }
+        let sparks = this.add.particles('pixel2')
+
+        let emitter = sparks.createEmitter({
+            speed: -100,
+            gravityY: 100, 
+            x: 30,
+            y: 30,
+            lifespan: 500,
+            scale: { start: 1, end: 0 },
+            blendMode: 0
+        });
+        emitter.explode(25, Enemy.x, Enemy.y)
+        }
 
     private removeBulletAstroid(Bullet : Bullet, Astroid : Astroid) {
         this.bulletGroup.remove(Bullet, true, true)
