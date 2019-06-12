@@ -92,9 +92,9 @@ export class GameScene extends Phaser.Scene {
     private removeBullet(Bullet : Bullet, Enemy : Enemy) {
         this.bulletGroup.remove(Bullet, true, true)
         this.enemyGroup.remove(Enemy, true, true) 
-        let sparks = this.add.particles('pixel')
+        let explode = this.add.particles('pixel3')
 
-        let emitter = sparks.createEmitter({
+        let emitter = explode.createEmitter({
             speed: -100,
             gravityY: 100, 
             x: 30,
@@ -122,6 +122,18 @@ export class GameScene extends Phaser.Scene {
     private removeAstroid(Player : Player, Astroid : Astroid){
         this.astroidGroup.remove(Astroid, true, true)
         this.registry.values.lives -= 50
+        let explode = this.add.particles('pixel4')
+
+        let emitter = explode.createEmitter({
+            speed: -100,
+            gravityY: 100, 
+            x: 30,
+            y: 30,
+            lifespan: 500,
+            scale: { start: 1, end: 0 },
+            blendMode: 0
+        });
+        emitter.explode(50, Astroid.x, Astroid.y)
     }
 
     update(){

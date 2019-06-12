@@ -28,6 +28,8 @@ export class BootScene extends Phaser.Scene {
         this.load.image('pixel', require('../assets/pixel.png'))
         this.load.image('missile', require('../assets/missile.png'))
         this.load.image('pixel2', require('../assets/pixel2.png'))
+        this.load.image('pixel3', require('../assets/pixel3.png'))
+        this.load.image('pixel4', require('../assets/pixel4.png'))
         this.load.image('asteroid', require('../assets/asteroid.png'))
         this.load.image('instructionsprite', require('../assets/instructionSprite.png'))
         this.load.audio('bgMusic', require('../sounds/bgmusic.mp3'))
