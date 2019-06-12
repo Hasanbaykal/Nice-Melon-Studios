@@ -1,10 +1,12 @@
 import { GameScene } from "../scenes/game-scene"
 import { Joystick } from "../utils/joystick"
+import { BootScene } from "../scenes/boot-scene"
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 
     private cursors: Phaser.Input.Keyboard.CursorKeys
     private GameScene: GameScene
+    private bgMusic: Phaser.Sound.BaseSound
     private joystick : Joystick
 
     constructor(scene: GameScene) {
@@ -30,8 +32,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         
     }
     private handleFireButton():void {
+        this.createMusic()
         this.GameScene.friendlyBullet()
+    }
 
+    // Initiate shootsound
+    private createMusic() {
+        this.bgMusic = this.GameScene.sound.add('shootSound');
+        this.bgMusic.play()
     }
 
     private joystickInput():void {
