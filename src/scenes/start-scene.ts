@@ -5,6 +5,8 @@ export class StartScene extends Phaser.Scene {
 
     private bgMusic: Phaser.Sound.BaseSound
 
+    public shootSound: Phaser.Sound.BaseSound
+
     constructor() {
         super({key: "StartScene"})
     }
@@ -38,5 +40,9 @@ export class StartScene extends Phaser.Scene {
     private createMusic() {
         this.bgMusic = this.sound.add('bgMusic', { loop: true });
         this.bgMusic.play()
+    }
+
+    public shootSFX() {
+        this.shootSound = this.sound.add('shootSound');
     }
 }

@@ -32,6 +32,7 @@ export class GameScene extends Phaser.Scene {
         this.registry.set("lives", 300)
     }
 
+
     create(): void {
         this.background = this.add.tileSprite(400, 300, 800, 600, 'boot')  
         this.bulletGroup = this.add.group({ runChildUpdate: true }) 
@@ -108,6 +109,10 @@ export class GameScene extends Phaser.Scene {
 
     public friendlyBullet(){
         this.bulletGroup.add(new Bullet(this, this.player.x, this.player.y-30), true)
+        // Shoot soundeffect
+        let shoot = this.sound.add('shootSound' , { volume: 0.2 }) 
+        shoot.play()
+        
     }
 
     private removeBullet(Bullet : Bullet, Enemy : Enemy) {
