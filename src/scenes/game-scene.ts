@@ -26,7 +26,7 @@ export class GameScene extends Phaser.Scene {
     init(): void {
         console.log("Game Scene")
         this.registry.set("score", 0)
-        this.registry.set("lives", 100)
+        this.registry.set("lives", 300)
     }
 
     create(): void {
@@ -78,8 +78,8 @@ export class GameScene extends Phaser.Scene {
     private collectPart(Player : Player, Parts : Parts) {
         this.partsGroup.remove(Parts, true, true)
         this.registry.values.score += 10
-        if(this.registry.values.lives < 100){
-        this.registry.values.lives += 25
+        if(this.registry.values.lives < 300){
+            this.registry.values.lives += 25
         }
     }
 
@@ -98,7 +98,7 @@ export class GameScene extends Phaser.Scene {
 
     private removeEnemy(Player : Player, Enemy : Enemy) {
         this.enemyGroup.remove(Enemy, true, true)
-        this.registry.values.hearts 
+        this.registry.values.lives -= 25
     }
 
     private removeEnemyNoScore(Enemy) {
@@ -107,7 +107,7 @@ export class GameScene extends Phaser.Scene {
 
     private removeAstroid(Player : Player, Astroid : Astroid){
         this.astroidGroup.remove(Astroid, true, true)
-        this.registry.values.lives -= 25
+        this.registry.values.lives -= 50
     }
 
     update(){
