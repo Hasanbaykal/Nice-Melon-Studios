@@ -1,11 +1,12 @@
 import { Player } from "../objects/player"
 import { UI } from "../objects/ui"
-import { Enemy} from "../objects/enemy"
+import { Enemy } from "../objects/enemy"
 import { Bullet } from "../objects/bullet"
 import { Platform } from "../objects/platform"
 import { Parts } from "../objects/parts"
 import { Astroid } from "../objects/astroid";
-
+import { emit } from "cluster";
+import { timeout } from "q";
 export class GameScene extends Phaser.Scene {
 
     private player : Player
@@ -27,7 +28,7 @@ export class GameScene extends Phaser.Scene {
     init(): void {
         console.log("Game Scene")
         this.registry.set("score", 0)
-        this.registry.set("lives", 100)
+        this.registry.set("lives", 300)
     }
 
 
@@ -41,27 +42,27 @@ export class GameScene extends Phaser.Scene {
 
         this.platforms = this.add.group({ runChildUpdate: true })
         this.platforms.addMultiple([
-            new Platform(this, 20, 574, "ground"),
-            new Platform(this, 780, 574, "ground2"),
+            new Platform(this, 20, 574, "bounds1_1"),
+            new Platform(this, 780, 574, "bounds1_2"),
         ], true)
         this.player = new Player(this)
 
 
-        this.killBtn = this.add.text(400, 550, 'KILL', { 
-            fontFamily: '"Press Start 2P"', 
-            fontSize: 30, color: 'white' }).setOrigin(0.5).setStroke('black', 15)
-        this.killBtn.setInteractive()
-        this.killBtn.on('pointerdown', (pointer) => {
-            this.scene.start('EndScene')
-        })        
+        // this.killBtn = this.add.text(400, 550, 'KILL', { 
+        //     fontFamily: '"Press Start 2P"', 
+        //     fontSize: 30, color: 'white' }).setOrigin(0.5).setStroke('black', 15)
+        // this.killBtn.setInteractive()
+        // this.killBtn.on('pointerdown', (pointer) => {
+        //     this.scene.start('EndScene')
+        // })        
 
-        this.scoreBtn = this.add.text(400, 150, 'SCORE', { 
-            fontFamily: '"Press Start 2P"', 
-            fontSize: 30, color: 'white' }).setOrigin(0.5).setStroke('black', 15)
-        this.scoreBtn.setInteractive()
-        this.scoreBtn.on('pointerdown', (pointer) => {
-            this.registry.values.score += 10000
-        })        
+        // this.scoreBtn = this.add.text(400, 150, 'SCORE', { 
+        //     fontFamily: '"Press Start 2P"', 
+        //     fontSize: 30, color: 'white' }).setOrigin(0.5).setStroke('black', 15)
+        // this.scoreBtn.setInteractive()
+        // this.scoreBtn.on('pointerdown', (pointer) => {
+        //     this.registry.values.score += 10000
+        // })        
 
         this.physics.add.collider(this.player, this.partsGroup, this.collectPart, null, this)
         this.physics.add.collider(this.player, this.enemyGroup, this.removeEnemy, null, this)
@@ -80,8 +81,8 @@ export class GameScene extends Phaser.Scene {
     private collectPart(Player : Player, Parts : Parts) {
         this.partsGroup.remove(Parts, true, true)
         this.registry.values.score += 10
-        if(this.registry.values.lives < 100){
-        this.registry.values.lives += 25
+        if(this.registry.values.lives < 300){
+            this.registry.values.lives += 25
         }
     }
 
@@ -96,7 +97,19 @@ export class GameScene extends Phaser.Scene {
     private removeBullet(Bullet : Bullet, Enemy : Enemy) {
         this.bulletGroup.remove(Bullet, true, true)
         this.enemyGroup.remove(Enemy, true, true) 
-    }
+        let explode = this.add.particles('pixel3')
+
+        let emitter = explode.createEmitter({
+            speed: -100,
+            gravityY: 100, 
+            x: 30,
+            y: 30,
+            lifespan: 500,
+            scale: { start: 1, end: 0 },
+            blendMode: 0
+        });
+        emitter.explode(25, Enemy.x, Enemy.y)
+        }
 
     private removeBulletAstroid(Bullet : Bullet, Astroid : Astroid) {
         this.bulletGroup.remove(Bullet, true, true)
@@ -104,7 +117,7 @@ export class GameScene extends Phaser.Scene {
 
     private removeEnemy(Player : Player, Enemy : Enemy) {
         this.enemyGroup.remove(Enemy, true, true)
-        this.registry.values.hearts 
+        this.registry.values.lives -= 25
     }
 
     private removeEnemyNoScore(Enemy) {
@@ -113,7 +126,19 @@ export class GameScene extends Phaser.Scene {
 
     private removeAstroid(Player : Player, Astroid : Astroid){
         this.astroidGroup.remove(Astroid, true, true)
-        this.registry.values.lives -= 25
+        this.registry.values.lives -= 50
+        let explode = this.add.particles('pixel4')
+
+        let emitter = explode.createEmitter({
+            speed: -100,
+            gravityY: 100, 
+            x: 30,
+            y: 30,
+            lifespan: 500,
+            scale: { start: 1, end: 0 },
+            blendMode: 0
+        });
+        emitter.explode(50, Astroid.x, Astroid.y)
     }
 
     update(){

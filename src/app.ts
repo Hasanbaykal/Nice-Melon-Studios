@@ -3,13 +3,14 @@ import { BootScene } from "./scenes/boot-scene"
 import { StartScene } from "./scenes/start-scene"
 import { GameScene } from "./scenes/game-scene"
 import { EndScene } from "./scenes/end-scene"
+import { InstructionScene } from "./scenes/instruction-scene"
 
 const config: GameConfig = {
     width: 800,
     height: 600,
     parent: "game",
     resolution: window.devicePixelRatio,
-    scene: [BootScene, StartScene, GameScene, EndScene],
+    scene: [BootScene, StartScene, GameScene, EndScene, InstructionScene],
     input: {
         keyboard: true
     },

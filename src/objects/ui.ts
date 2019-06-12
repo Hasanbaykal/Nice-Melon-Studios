@@ -1,38 +1,42 @@
 import { REPLServer } from "repl";
+import { runInThisContext } from "vm";
 
 export class UI {
 
     private scene:Phaser.Scene
     private graphics: Phaser.GameObjects.Graphics
     private scoreField: Phaser.GameObjects.Text
-    private lives: Phaser.GameObjects.Text
-    private hearts: Phaser.GameObjects.Image
-    private maxLives = 3
+    private lifebar: Phaser.Geom.Rectangle
 
 
     constructor(scene: Phaser.Scene) {
         this.scene = scene
+
+        this.graphics = this.scene.add.graphics({ lineStyle: { width: 1, color: 0xFFFFFF }, fillStyle: { color: 0x00AA00 } })
+        this.lifebar = new Phaser.Geom.Rectangle(430, 20, 300, 16)
+        this.graphics.fillRectShape(this.lifebar)
+        this.graphics.strokeRectShape(new Phaser.Geom.Rectangle(430, 20, 300, 16))
         
         this.scoreField = this.scene.add.text(15, 20, 'Score: ' + this.scene.registry.values.score, { 
             fontFamily: '"Press Start 2P"', 
             fontSize: 24, 
             color: '#FFF' })
-        
-        // this.lives = this.scene.add.text(250, 20, 'Lives: ' + this.scene.registry.values.lives, { 
-        //     fontFamily: '"Press Start 2P"', 
-        //     fontSize: 24, 
-        //     color: '#FFF' })
-        
-        for(let i = 0; i < this.maxLives; i++){
-            this.hearts = this.scene.add.sprite(250+80*i, 50, 'heart')
-        }
     }
-    
 
-
-    public update() : void {
+    public update(){
         this.scoreField.text = 'Score: ' + this.scene.registry.values.score
-        // this.lives.text = 'Lives: ' + this.scene.registry.values.lives
-        this.hearts = this.scene.registry.values.hearts
+
+        if (this.lifebar.width > this.scene.registry.values.lives) 
+        this.lifebar.width--
+        this.graphics.clear()
+        this.graphics.fillRectShape(this.lifebar)
+        this.graphics.strokeRectShape(new Phaser.Geom.Rectangle(430, 20, 300, 16))
+        
+        if(this.scene.registry.values.lives > this.lifebar.width){
+            this.lifebar.width++
+            this.graphics.clear()
+            this.graphics.fillRectShape(this.lifebar)
+            this.graphics.strokeRectShape(new Phaser.Geom.Rectangle(430, 20, 300, 16))   
+        }
     }
 }
