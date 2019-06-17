@@ -14,7 +14,7 @@ export class EndScene extends Phaser.Scene {
         } else {
             localStorage.setItem("scores_not_highscore", this.registry.values.score)
         }
-        this.game.sound.stopAll()
+        this.sound.play('gameoverSound')
     }
 
     create(): void {
@@ -35,6 +35,7 @@ export class EndScene extends Phaser.Scene {
         startBtn.setInteractive()
         this.input.once('pointerdown', (pointer) => {
             this.scene.start('StartScene')
+            this.game.sound.stopAll();
         })      
         
         if(this.registry.values.score < localStorage.getItem('scores')){
