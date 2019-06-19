@@ -166,6 +166,23 @@ export class GameScene extends Phaser.Scene {
                 new Platform(this, 780, 574, "bounds2_2"),
             ], true)
         }
+
+        this.counter++
+        if(this.registry.values.score == 200) {
+            this.platforms.addMultiple([
+                new Platform(this, 20, 200, "bounds3_1"),
+                new Platform(this, 780, 200, "bounds3_2"),
+            ], true)
+        }
+
+        this.counter++
+        if(this.registry.values.score == 300) {
+            this.platforms.addMultiple([
+                new Platform(this, 40, 300, "bounds4_1"),
+                new Platform(this, 760, 300, "bounds4_2"),
+            ], true)
+        }
+
         if(this.counter % 100 == 0){
             this.enemyGroup.add(new Enemy(this), true)
         }
@@ -178,5 +195,5 @@ export class GameScene extends Phaser.Scene {
             this.scene.start("EndScene")
          }
     }
-
+        
 }
