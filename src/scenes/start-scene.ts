@@ -7,6 +7,8 @@ export class StartScene extends Phaser.Scene {
 
     public shootSound: Phaser.Sound.BaseSound
 
+    public gameoverSound: Phaser.Sound.BaseSound
+
     constructor() {
         super({key: "StartScene"})
     }
@@ -44,5 +46,9 @@ export class StartScene extends Phaser.Scene {
 
     public shootSFX() {
         this.shootSound = this.sound.add('shootSound');
+    }
+
+    public gameOverSFX() {
+        this.gameoverSound = this.sound.add('gameoverSound');
     }
 }

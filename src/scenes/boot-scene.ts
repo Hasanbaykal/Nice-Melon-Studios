@@ -34,8 +34,11 @@ export class BootScene extends Phaser.Scene {
         this.load.image('pixel4', require('../assets/pixel4.png'))
         this.load.image('asteroid', require('../assets/asteroid.png'))
         this.load.image('instructionsprite', require('../assets/instructionSprite.png'))
+
+        // Sound
         this.load.audio('bgMusic', require('../sounds/bgmusic.mp3'))
-        this.load.audio('shootSound', require('../sounds/shoot.mp3'));
+        this.load.audio('shootSound', require('../sounds/shoot.mp3'))
+        this.load.audio('gameoverSound', require('../sounds/bestcryever.mp3'));
 
 
         this.load.on('complete', () => {

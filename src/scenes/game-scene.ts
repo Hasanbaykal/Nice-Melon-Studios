@@ -158,6 +158,7 @@ export class GameScene extends Phaser.Scene {
             this.astroidGroup.add(new Astroid(this), true)
          }
          if(this.registry.values.lives == 0){
+            this.game.sound.stopAll();
             this.scene.start("EndScene")
          }
     }
