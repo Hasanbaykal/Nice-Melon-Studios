@@ -16,7 +16,7 @@ export class BootScene extends Phaser.Scene {
         // Images
         this.load.image('boot', require('../assets/bg.png'))
         this.load.image('heart', require('../assets/heart.png'))
-        this.load.image('spaceship1', require('../assets/spaceship1.png'))
+        this.load.image('powerheart', require('../assets/powerheart.png'))
         this.load.image('star', require('../assets/star.png'))
         this.load.image('bomb', require('../assets/bomb.png'))
         this.load.image('bounds1_1', require('../assets/bounds1_1.png'))
