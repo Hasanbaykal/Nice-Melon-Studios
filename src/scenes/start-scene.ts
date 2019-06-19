@@ -1,16 +1,19 @@
 import { GameScene } from "./game-scene";
 import { InstructionScene} from "./instruction-scene";
+import { Joystick } from "../utils/joystick"
 
 export class StartScene extends Phaser.Scene {
 
     private bgMusic: Phaser.Sound.BaseSound
-
     public shootSound: Phaser.Sound.BaseSound
-
+    private joystick : Joystick
     public gameoverSound: Phaser.Sound.BaseSound
 
     constructor() {
         super({key: "StartScene"})
+        this.joystick = new Joystick(6) 
+        document.addEventListener("button0", () => this.scene.start('GameScene'))       
+
     }
 
     init(): void {

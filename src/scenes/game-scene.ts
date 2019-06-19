@@ -19,6 +19,7 @@ export class GameScene extends Phaser.Scene {
     private counter = 0
     private background
     private ui: UI
+    private joystickListener: EventListener
     private scoreBtn
     private killBtn
 
@@ -79,6 +80,7 @@ export class GameScene extends Phaser.Scene {
         this.ui = new UI(this)
     }
 
+    
     private Particles(x, y, i){
         let explode = this.add.particles(i)
 
