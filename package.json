@@ -19,7 +19,7 @@
     "@types/webpack-env": "^1.13.9",
     "assets": "^3.0.1",
     "colors.css": "^3.0.0",
-    "phaser": "^3.16.2",
+    "phaser": "^3.17.0",
     "sounds": "^1.0.2"
   },
   "devDependencies": {

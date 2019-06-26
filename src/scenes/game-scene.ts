@@ -35,7 +35,7 @@ export class GameScene extends Phaser.Scene {
 
 
     create(): void {
-        this.background = this.add.tileSprite(400, 300, 800, 600, 'boot')  
+        this.background = this.add.tileSprite(0, 0, 1900, 1000, 'boot').setOrigin(0,0)  
         this.bulletGroup = this.add.group({ runChildUpdate: true }) 
 
         this.partsGroup = this.add.group({ runChildUpdate: true }).add(new Parts(this), true)
@@ -45,7 +45,7 @@ export class GameScene extends Phaser.Scene {
         this.platforms = this.add.group({ runChildUpdate: true })
         this.platforms.addMultiple([
             new Platform(this, 20, 574, "bounds1_1"),
-            new Platform(this, 780, 574, "bounds1_2"),
+            new Platform(this, 1680, 574, "bounds1_2"),
         ], true)
         this.player = new Player(this)
 
@@ -159,9 +159,10 @@ export class GameScene extends Phaser.Scene {
             this.partsGroup.add(new Parts(this), true)
             this.astroidGroup.add(new Astroid(this), true)
          }
-         if(this.registry.values.lives == 0){
+         if(this.registry.values.lives <= 0){
             this.game.sound.stopAll();
             this.scene.start("EndScene")
+            document.removeEventListener("joystick0button0", this.joystickListener)
          }
     }
 

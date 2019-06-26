@@ -1,7 +1,12 @@
+import { Arcade } from "../utils/arcade"
+import { Wormhole } from "../app"
+
 export class EndScene extends Phaser.Scene {
 
     private background
     private scores: number
+    private arcade: Arcade
+    private nextGameListener: EventListener
 
     constructor() {
         super({key: "EndScene"})
@@ -18,7 +23,10 @@ export class EndScene extends Phaser.Scene {
     }
 
     create(): void {
-        this.background = this.add.tileSprite(400, 300, 800, 600, 'boot')  
+        let g = this.game as Wormhole
+        this.arcade = g.arcade
+
+        this.background = this.add.tileSprite(0, 0, 1900, 1000, 'boot').setOrigin(0,0)
         if(this.scores){
             this.add.text(400, 100, 'NEW HIGH SCORE', { 
                 fontFamily: '"Press Start 2P"', 
@@ -55,13 +63,27 @@ export class EndScene extends Phaser.Scene {
             fontFamily: '"Press Start 2P"', 
             fontSize: 30, 
             color: 'white' }).setOrigin(0.5).setStroke('black', 15)
+
+            this.nextGameListener = () => this.nextGame()
+            document.addEventListener("joystick0button0", this.nextGameListener)
             
         }
 
         
-        
+        private nextGame(){
+            document.removeEventListener("joystick0button0", this.nextGameListener)
+    
+            this.registry.set("score", 0)
+            this.registry.set("bombs", 3)
+            this.registry.set("life", 300)
+    
+            this.scene.start('GameScene')
+        }
 
     update(){
         this.background.tilePositionY -= 2
+        for (let joystick of this.arcade.Joysticks) {
+            joystick.update()
+        }
     }
 }

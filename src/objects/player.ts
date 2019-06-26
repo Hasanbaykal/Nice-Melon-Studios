@@ -1,12 +1,14 @@
 import { GameScene } from "../scenes/game-scene"
-import { Joystick } from "../utils/joystick"
+import { Arcade } from "../utils/arcade"
+import { Wormhole } from "../app"
+import { StartScene } from "../scenes/start-scene"
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 
     private cursors: Phaser.Input.Keyboard.CursorKeys
     private GameScene: GameScene
+    public arcade : Arcade
     private bgMusic: Phaser.Sound.BaseSound
-    private joystick : Joystick
 
     constructor(scene: GameScene) {
         super(scene, 100, 450, "worm")
@@ -17,15 +19,17 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this)
         this.addParticles()
         this.scene.physics.add.existing(this)
-        this.joystick = new Joystick(6)
 
         this.setCollideWorldBounds(true)
         this.setDrag(1000)
-        document.addEventListener("button0", () => this.handleFireButton())       
+        document.addEventListener("joystick0button0", () => this.handleFireButton())   
+        
+        let g = this.scene.game as Wormhole
+        this.arcade = g.arcade
+
     }
 
     public update(){
-        this.joystick.update()
         this.joystickInput()
         this.keyController()
         
@@ -42,8 +46,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     private joystickInput():void {
-        this.setVelocityX(this.joystick.XAxis * 400)
-        this.setVelocityY(this.joystick.YAxis * 400)
+        for (let joystick of this.arcade.Joysticks) {
+            joystick.update()
+        }
+        if (this.arcade.Joysticks[0]) {
+            this.setVelocityX(this.arcade.Joysticks[0].X * 400)
+            this.setVelocityY(this.arcade.Joysticks[0].Y * 400)
+        }
     }
 
     private addParticles() {

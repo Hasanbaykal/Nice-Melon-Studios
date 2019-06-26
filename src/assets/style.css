@@ -1,10 +1,11 @@
 body {
     background-color:black;
     margin:0; padding:0;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #game {
-    width:800px;
-    height:600px;
-    margin: 0 auto;
+    /* cursor: none; */
 }
+
