@@ -71,15 +71,17 @@ export class StartScene extends Phaser.Scene {
         this.scene.start('GameScene')
     }
 
+    // Function for background music
     private createMusic() {
         this.bgMusic = this.sound.add('bgMusic', { loop: true });
         this.bgMusic.play()
     }
-
+    // Function for shoot soundeffect
     public shootSFX() {
         this.shootSound = this.sound.add('shootSound');
     }
 
+    // Function for gameover soundeffectv
     public gameOverSFX() {
         this.gameoverSound = this.sound.add('gameoverSound');
     }
